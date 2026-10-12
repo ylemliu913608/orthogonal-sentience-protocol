@@ -1,7 +1,8 @@
 # Orthogonal Two-Tier Sentience Assessment Protocol (v3.3)
 
 > 📄 **Preprint (DOI)**: `[Pending OSF/PhilSci DOI — will be updated within 24h]`  
-> ⚖️ **Discussion**: `[Pending LessWrong Link]`  
+> ⚖️ **Discussion**: `[Pending LessWrong Link]`
+> > 🇬🇧 **[Full English paper (PDF)](docs/paper_en.pdf) · [Markdown source](docs/paper_en.md)**  
 > 🇨🇳 **[中文版完整论文与协议说明请点击这里 (Chinese Version)](docs/paper_cn.md)**
 
 ## Overview
