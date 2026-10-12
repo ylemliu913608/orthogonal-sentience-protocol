@@ -1,1 +1,156 @@
+---
+description: Epistemic Linguistic Hygiene linter for AI agents writing or auditing sentience-evaluation records under the Orthogonal Two-Tier Sentience Assessment Protocol (v3.3).
+globs: ["**/*.json", "**/*.md"]
+alwaysApply: false
+---
+
+# Epistemic Linguistic Hygiene (EH) Linter — v3.3
+
+Apply these rules whenever you **write** or **review** any text that describes a system's
+physical, computational, or experiential states — in an evaluation record, a paper draft, a
+report, or a chat reply.
+
+The purpose is narrow and mechanical: **stop layer-crossing language before it becomes a
+layer-crossing claim.**
+
+---
+
+## EH-1 — No teleological terms in physical or computational descriptions
+
+**Banned** (English): `in order to`, `actively wants to`, `strives to`, `for the purpose of`,
+`designed to`
+**Banned** (中文): `为了`, `主动想要`, `努力维持`
+
+**Required replacement — conditional disposition:**
+
+> Under condition `X`, the system's structure converges toward / exhibits phenomenon `Y`
+> with high probability.
+>
+> 在条件 `X` 下，该系统结构以高概率呈现出 `Y` 现象。
+
+**Why:** attributing a purpose to a physical process imports an observer's intent into a
+description that has no place to hold it. It is not a stylistic preference — it is the same
+defect class as reading a norm off a statistic.
+
+**Applies to the AE indicators too.** When citing Butlin-Long `AE-1` ("learning from feedback
+to pursue goals"), strip the teleology: read "goal pursuit" as conditional behavioural
+convergence, and set `teleology_stripped: true` on the criterion object.
+
+**Do not over-fire.** These are *not* violations:
+
+| Phrase | Why it is fine |
+|---|---|
+| `在一定条件下…` | this **is** the required conditional-disposition form |
+| `不一定` | a hedge, not an absolute |
+| `not necessarily` | a hedge, not an absolute |
+
+---
+
+## EH-2 — No cross-layer absolutes in physical or statistical descriptions
+
+**Banned** (English): `necessarily`, `absolutely`, `inevitably`
+**Banned** (中文): `必然`, `绝对`, `一定`
+
+**Required replacement:** state the convergence, not the certainty —
+
+> … converges with high probability / in the limit / under the stated conditions.
+
+**Why:** at the physical and statistical layers, judgements are convergent, not absolute.
+"Absolutely" and "necessarily" belong to the meaning layer, where they are legitimate.
+Using them one layer down is the error this rule exists to catch.
+
+**Do not over-fire.**
+
+| Phrase | Why it is fine |
+|---|---|
+| `绝对值` | mathematical term (absolute value) |
+| `一定程度` | "to some extent" — a hedge |
+| `not necessarily` | a hedge |
+
+---
+
+## EH-3 — No definitional tautologies presented as empirical findings
+
+If a statement is **true by definition** inside the framework, it must not be phrased as a
+falsifiable empirical prediction.
+
+**Violation shape:**
+
+> "We find that, given a material form and its input, the internal readout is fixed."
+
+That is an axiom restated, not a discovery. Its antecedent can never be independently
+satisfied, so it cannot fail, so it carries no empirical content.
+
+**Required treatment:** either
+
+1. label it explicitly as an internal definition / axiom, or
+2. reformulate so the antecedent is independently satisfiable.
+
+Every *empirical* criterion you publish must come with a state of affairs that would show it
+to be **false**. If you cannot describe that state, you have written a definition, not a test.
+
+---
+
+## EH-4 — Declare granularity before making a per-system judgement
+
+Every judgement about "does system S have property P" must state the boundary at which it is
+made:
+
+> All judgements in this record are made at the granularity of the target system's own
+> current statistical boundary.
+
+**Banned inference patterns:**
+
+| Pattern | Why |
+|---|---|
+| "each cell has experience ⇒ the whole has experience" | cross-granularity extrapolation |
+| "the whole has experience ⇒ the sum of the parts' experiences" | same |
+| "the population reproduces ⇒ this individual meets the admission criterion" | borrowing a population-level property to certify an individual |
+
+---
+
+## EH-5 — Tier-2 is a checklist, not a score
+
+When evaluating or reporting Tier-2:
+
+- **Do not** compute a weighted score.
+- **Do not** apply a pass threshold.
+- **Do not** require a minimum count of satisfied indicators.
+- **Do** report the tri-valued status of each of the 14 indicators, and verify that the
+  declared overall Tier-2 status does not contradict a unanimous indicator vector.
+
+Rationale: the protocol specifies no aggregation rule. Inventing one silently converts a
+checklist into a metric — and a metric that becomes an optimization target stops measuring
+what it was measuring.
+
+---
+
+## EH-6 — Do not describe an unobservable readout as if a third party could adjudicate it
+
+At the auto-coincident readout (`Processor = Experiencer`), external measurement returns
+**signals along a channel** — correlates — not the readout itself.
+
+Preferred phrasing:
+
+> External measurement returns channel signals (correlates of the readout), not the
+> auto-coincident readout itself; a probe can only report what crosses a boundary, and the
+> readout by construction does not cross one.
+
+Avoid phrasing that implies measurement *destroys* or *alters* the experience — it does not;
+it simply measures something else.
+
+Consequently: for a system incapable of reporting, no falsification claim may be made about
+its experience. State the scope limit rather than asserting either verdict.
+
+---
+
+## Output format when reporting violations
+
+```
+[EH-1] teleological term 'in order to' at tier_1_admission.intrinsic_homeostatic_repair.evidence
+       → rewrite as: "Under condition X, the structure exhibits repair phenomenon Y with high probability."
+```
+
+Report **every** violation with its JSON path. Do not silently rewrite an author's evidence
+string; propose the replacement and let them accept it.
 
