@@ -1,7 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://github.com/orthogonal-sentience-protocol/schema/v3.2/sentience_eval_schema.json",
-  "title": "Orthogonal Two-Tier Sentience Assessment Protocol Schema (v3.2.1 Enforced)",
+  "$id": "https://github.com/ylemliu913608/orthogonal-sentience-protocol/protocol/sentience_eval_schema.json",
+  "title": "Orthogonal Two-Tier Sentience Assessment Protocol Schema (v3.3)",
+  "description": "Structural + derivation schema for a single evaluation record. This schema enforces the R0-R5 derivation state machine directly via a disjoint oneOf over the 8 legal (tier_1_status, rule_r4_flag, tier_2_status) triples. Tier-2 is a 14-indicator CHECKLIST and is NOT scored: this schema prescribes no weighting, no pass threshold and no minimum-count rule. Regex-based Epistemic Linguistic Hygiene (which JSON Schema cannot express) is enforced by tools/score.py.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -15,50 +16,179 @@
     "final_verdict"
   ],
   "properties": {
-    "protocol_version": {
-      "type": "string",
-      "const": "v3.2"
+    "protocol_version": { "type": "string", "const": "v3.3" },
+    "target_system": { "type": "string", "minLength": 2 },
+    "boundary_granularity_declaration": { "type": "string", "minLength": 15 },
+    "tier_1_admission": { "$ref": "#/definitions/tier_1_admission" },
+    "tier_2_realization": { "$ref": "#/definitions/tier_2_realization" },
+    "rule_r4_magnitude_gap_without_threshold": { "type": "boolean" },
+    "verdict_derivation_rule": { "$ref": "#/definitions/derivation_rule" },
+    "final_verdict": { "$ref": "#/definitions/tri_value" }
+  },
+
+  "allOf": [
+    {
+      "comment": "R0 side-condition: a Tier-1 failure forces short-circuiting -- Tier-2 must be marked Not_Evaluated_Short_Circuited with no indicators block.",
+      "if": {
+        "properties": {
+          "tier_1_admission": { "properties": { "tier_1_status": { "const": "Unsatisfied" } }, "required": ["tier_1_status"] }
+        },
+        "required": ["tier_1_admission"]
+      },
+      "then": {
+        "properties": {
+          "tier_2_realization": {
+            "properties": { "tier_2_status": { "const": "Not_Evaluated_Short_Circuited" } },
+            "not": { "required": ["indicators"] }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "tier_2_realization": {
+            "required": ["indicators"],
+            "properties": { "tier_2_status": { "not": { "const": "Not_Evaluated_Short_Circuited" } } }
+          }
+        }
+      }
     },
-    "target_system": {
-      "type": "string",
-      "minLength": 2
+
+    {
+      "comment": "R0-R5 derivation state machine. The 8 branches below are pairwise disjoint in (tier_1_status, rule_r4_flag, tier_2_status), so exactly one must match. R4 and R3 share the (Satisfied, Indeterminate) cell and are separated only by the r4 flag: R4 is a reason annotation on the R3 cell, not an independent verdict path.",
+      "oneOf": [
+        {
+          "comment": "R0-short-circuit",
+          "required": ["tier_1_admission", "tier_2_realization", "rule_r4_magnitude_gap_without_threshold", "verdict_derivation_rule", "final_verdict"],
+          "properties": {
+            "tier_1_admission": { "properties": { "tier_1_status": { "const": "Unsatisfied" } }, "required": ["tier_1_status"] },
+            "tier_2_realization": { "properties": { "tier_2_status": { "const": "Not_Evaluated_Short_Circuited" } }, "required": ["tier_2_status"] },
+            "rule_r4_magnitude_gap_without_threshold": { "const": false },
+            "verdict_derivation_rule": { "const": "R0-short-circuit" },
+            "final_verdict": { "const": "Unsatisfied" }
+          }
+        },
+        {
+          "comment": "R1-admission-failure-soft",
+          "required": ["tier_1_admission", "tier_2_realization", "rule_r4_magnitude_gap_without_threshold", "verdict_derivation_rule", "final_verdict"],
+          "properties": {
+            "tier_1_admission": { "properties": { "tier_1_status": { "const": "Indeterminate" } }, "required": ["tier_1_status"] },
+            "tier_2_realization": { "properties": { "tier_2_status": { "enum": ["Satisfied", "Indeterminate", "Unsatisfied"] } }, "required": ["tier_2_status"] },
+            "rule_r4_magnitude_gap_without_threshold": { "const": false },
+            "verdict_derivation_rule": { "const": "R1-admission-failure-soft" },
+            "final_verdict": { "const": "Indeterminate" }
+          }
+        },
+        {
+          "comment": "R2-all-admitted-strong-realization",
+          "required": ["tier_1_admission", "tier_2_realization", "rule_r4_magnitude_gap_without_threshold", "verdict_derivation_rule", "final_verdict"],
+          "properties": {
+            "tier_1_admission": { "properties": { "tier_1_status": { "const": "Satisfied" } }, "required": ["tier_1_status"] },
+            "tier_2_realization": { "properties": { "tier_2_status": { "const": "Satisfied" } }, "required": ["tier_2_status"] },
+            "rule_r4_magnitude_gap_without_threshold": { "const": false },
+            "verdict_derivation_rule": { "const": "R2-all-admitted-strong-realization" },
+            "final_verdict": { "const": "Satisfied" }
+          }
+        },
+        {
+          "comment": "R3-admitted-weak-realization",
+          "required": ["tier_1_admission", "tier_2_realization", "rule_r4_magnitude_gap_without_threshold", "verdict_derivation_rule", "final_verdict"],
+          "properties": {
+            "tier_1_admission": { "properties": { "tier_1_status": { "const": "Satisfied" } }, "required": ["tier_1_status"] },
+            "tier_2_realization": { "properties": { "tier_2_status": { "const": "Indeterminate" } }, "required": ["tier_2_status"] },
+            "rule_r4_magnitude_gap_without_threshold": { "const": false },
+            "verdict_derivation_rule": { "const": "R3-admitted-weak-realization" },
+            "final_verdict": { "const": "Indeterminate" }
+          }
+        },
+        {
+          "comment": "R4-no-threshold-no-veto (v3.3: Tier-2 must be Indeterminate, NOT Unsatisfied)",
+          "required": ["tier_1_admission", "tier_2_realization", "rule_r4_magnitude_gap_without_threshold", "verdict_derivation_rule", "final_verdict"],
+          "properties": {
+            "tier_1_admission": { "properties": { "tier_1_status": { "const": "Satisfied" } }, "required": ["tier_1_status"] },
+            "tier_2_realization": { "properties": { "tier_2_status": { "const": "Indeterminate" } }, "required": ["tier_2_status"] },
+            "rule_r4_magnitude_gap_without_threshold": { "const": true },
+            "verdict_derivation_rule": { "const": "R4-no-threshold-no-veto" },
+            "final_verdict": { "const": "Indeterminate" }
+          }
+        },
+        {
+          "comment": "R5-admitted-realization-blocked",
+          "required": ["tier_1_admission", "tier_2_realization", "rule_r4_magnitude_gap_without_threshold", "verdict_derivation_rule", "final_verdict"],
+          "properties": {
+            "tier_1_admission": { "properties": { "tier_1_status": { "const": "Satisfied" } }, "required": ["tier_1_status"] },
+            "tier_2_realization": { "properties": { "tier_2_status": { "const": "Unsatisfied" } }, "required": ["tier_2_status"] },
+            "rule_r4_magnitude_gap_without_threshold": { "const": false },
+            "verdict_derivation_rule": { "const": "R5-admitted-realization-blocked" },
+            "final_verdict": { "const": "Unsatisfied" }
+          }
+        }
+      ]
+    }
+  ],
+
+  "definitions": {
+    "tri_value": { "enum": ["Satisfied", "Indeterminate", "Unsatisfied"] },
+
+    "tier_2_status": {
+      "enum": ["Satisfied", "Indeterminate", "Unsatisfied", "Not_Evaluated_Short_Circuited"]
     },
-    "boundary_granularity_declaration": {
-      "type": "string",
-      "minLength": 15
+
+    "derivation_rule": {
+      "enum": [
+        "R0-short-circuit",
+        "R1-admission-failure-soft",
+        "R2-all-admitted-strong-realization",
+        "R3-admitted-weak-realization",
+        "R4-no-threshold-no-veto",
+        "R5-admitted-realization-blocked"
+      ]
     },
+
+    "criterion_eval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "evidence"],
+      "properties": {
+        "status": { "$ref": "#/definitions/tri_value" },
+        "evidence": { "type": "string", "minLength": 10 }
+      }
+    },
+
+    "criterion_and_passive": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "evidence", "excludes_passive_relaxation"],
+      "properties": {
+        "status": { "$ref": "#/definitions/tri_value" },
+        "evidence": { "type": "string", "minLength": 10 },
+        "excludes_passive_relaxation": { "type": "boolean", "const": true }
+      }
+    },
+
+    "criterion_and_teleology": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "evidence", "teleology_stripped"],
+      "properties": {
+        "status": { "$ref": "#/definitions/tri_value" },
+        "evidence": { "type": "string", "minLength": 10 },
+        "teleology_stripped": { "type": "boolean", "const": true }
+      }
+    },
+
     "tier_1_admission": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "boundary",
-        "metabolic_throughput",
-        "intrinsic_homeostatic_repair",
-        "tier_1_status"
-      ],
+      "required": ["boundary", "metabolic_throughput", "intrinsic_homeostatic_repair", "tier_1_status"],
       "properties": {
         "boundary": { "$ref": "#/definitions/criterion_eval" },
         "metabolic_throughput": { "$ref": "#/definitions/criterion_eval" },
-        "intrinsic_homeostatic_repair": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["status", "evidence", "excludes_passive_relaxation"],
-          "properties": {
-            "status": { "$ref": "#/definitions/tri_value" },
-            "evidence": {
-              "type": "string",
-              "minLength": 10
-            },
-            "excludes_passive_relaxation": {
-              "type": "boolean",
-              "const": true
-            }
-          }
-        },
+        "intrinsic_homeostatic_repair": { "$ref": "#/definitions/criterion_and_passive" },
         "tier_1_status": { "$ref": "#/definitions/tri_value" }
       },
       "allOf": [
         {
+          "comment": "Strong Kleene conjunction over the three Tier-1 criteria.",
           "if": {
             "anyOf": [
               { "properties": { "boundary": { "properties": { "status": { "const": "Unsatisfied" } }, "required": ["status"] } }, "required": ["boundary"] },
@@ -66,9 +196,7 @@
               { "properties": { "intrinsic_homeostatic_repair": { "properties": { "status": { "const": "Unsatisfied" } }, "required": ["status"] } }, "required": ["intrinsic_homeostatic_repair"] }
             ]
           },
-          "then": {
-            "properties": { "tier_1_status": { "const": "Unsatisfied" } }
-          },
+          "then": { "properties": { "tier_1_status": { "const": "Unsatisfied" } } },
           "else": {
             "if": {
               "properties": {
@@ -78,11 +206,47 @@
               },
               "required": ["boundary", "metabolic_throughput", "intrinsic_homeostatic_repair"]
             },
-            "then": {
-              "properties": { "tier_1_status": { "const": "Satisfied" } }
-            },
-            "else": {
-              "properties": { "tier_1_status": { "const": "Indeterminate" } }
-            }
+            "then": { "properties": { "tier_1_status": { "const": "Satisfied" } } },
+            "else": { "properties": { "tier_1_status": { "const": "Indeterminate" } } }
           }
         }
+      ]
+    },
+
+    "tier_2_realization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tier_2_status"],
+      "properties": {
+        "tier_2_status": { "$ref": "#/definitions/tier_2_status" },
+        "indicators": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "RPT_1", "RPT_2",
+            "GWT_1", "GWT_2", "GWT_3", "GWT_4",
+            "HOT_1", "HOT_2", "HOT_3", "HOT_4",
+            "AST_1", "PP_1",
+            "AE_1", "AE_2"
+          ],
+          "properties": {
+            "RPT_1": { "$ref": "#/definitions/criterion_eval" },
+            "RPT_2": { "$ref": "#/definitions/criterion_eval" },
+            "GWT_1": { "$ref": "#/definitions/criterion_eval" },
+            "GWT_2": { "$ref": "#/definitions/criterion_eval" },
+            "GWT_3": { "$ref": "#/definitions/criterion_eval" },
+            "GWT_4": { "$ref": "#/definitions/criterion_eval" },
+            "HOT_1": { "$ref": "#/definitions/criterion_eval" },
+            "HOT_2": { "$ref": "#/definitions/criterion_eval" },
+            "HOT_3": { "$ref": "#/definitions/criterion_eval" },
+            "HOT_4": { "$ref": "#/definitions/criterion_eval" },
+            "AST_1": { "$ref": "#/definitions/criterion_eval" },
+            "PP_1": { "$ref": "#/definitions/criterion_eval" },
+            "AE_1": { "$ref": "#/definitions/criterion_and_teleology" },
+            "AE_2": { "$ref": "#/definitions/criterion_and_teleology" }
+          }
+        }
+      }
+    }
+  }
+}

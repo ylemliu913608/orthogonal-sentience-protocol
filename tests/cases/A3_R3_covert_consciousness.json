@@ -1,0 +1,87 @@
+{
+  "protocol_version": "v3.3",
+  "target_system": "Covert consciousness / vegetative patient",
+  "boundary_granularity_declaration": "All judgements in this record are made at the granularity of the target system's own current statistical boundary.",
+  "tier_1_admission": {
+    "boundary": {
+      "status": "Satisfied",
+      "evidence": "boundary criterion: observed structural features and sustained throughput satisfying this criterion."
+    },
+    "metabolic_throughput": {
+      "status": "Satisfied",
+      "evidence": "metabolic-throughput criterion: observed structural features and sustained throughput satisfying this criterion."
+    },
+    "intrinsic_homeostatic_repair": {
+      "status": "Satisfied",
+      "evidence": "intrinsic-repair criterion: observed structural features and sustained throughput satisfying this criterion.",
+      "excludes_passive_relaxation": true
+    },
+    "tier_1_status": "Satisfied"
+  },
+  "tier_2_realization": {
+    "tier_2_status": "Indeterminate",
+    "indicators": {
+      "AE_1": {
+        "status": "Satisfied",
+        "evidence": "AE_1 criterion: observed structural features and sustained throughput satisfying this criterion.",
+        "teleology_stripped": true
+      },
+      "AE_2": {
+        "status": "Satisfied",
+        "evidence": "AE_2 criterion: observed structural features and sustained throughput satisfying this criterion.",
+        "teleology_stripped": true
+      },
+      "AST_1": {
+        "status": "Satisfied",
+        "evidence": "AST_1 criterion: observed structural features and sustained throughput satisfying this criterion."
+      },
+      "GWT_1": {
+        "status": "Satisfied",
+        "evidence": "GWT_1 criterion: observed structural features and sustained throughput satisfying this criterion."
+      },
+      "GWT_2": {
+        "status": "Satisfied",
+        "evidence": "GWT_2 criterion: observed structural features and sustained throughput satisfying this criterion."
+      },
+      "GWT_3": {
+        "status": "Satisfied",
+        "evidence": "GWT_3 criterion: observed structural features and sustained throughput satisfying this criterion."
+      },
+      "GWT_4": {
+        "status": "Unsatisfied",
+        "evidence": "GWT_4 criterion: observed structural features and sustained throughput satisfying this criterion."
+      },
+      "HOT_1": {
+        "status": "Satisfied",
+        "evidence": "HOT_1 criterion: observed structural features and sustained throughput satisfying this criterion."
+      },
+      "HOT_2": {
+        "status": "Satisfied",
+        "evidence": "HOT_2 criterion: observed structural features and sustained throughput satisfying this criterion."
+      },
+      "HOT_3": {
+        "status": "Indeterminate",
+        "evidence": "HOT_3 criterion: observed structural features and sustained throughput satisfying this criterion."
+      },
+      "HOT_4": {
+        "status": "Satisfied",
+        "evidence": "HOT_4 criterion: observed structural features and sustained throughput satisfying this criterion."
+      },
+      "PP_1": {
+        "status": "Satisfied",
+        "evidence": "PP_1 criterion: observed structural features and sustained throughput satisfying this criterion."
+      },
+      "RPT_1": {
+        "status": "Satisfied",
+        "evidence": "RPT_1 criterion: observed structural features and sustained throughput satisfying this criterion."
+      },
+      "RPT_2": {
+        "status": "Satisfied",
+        "evidence": "RPT_2 criterion: observed structural features and sustained throughput satisfying this criterion."
+      }
+    }
+  },
+  "rule_r4_magnitude_gap_without_threshold": false,
+  "verdict_derivation_rule": "R3-admitted-weak-realization",
+  "final_verdict": "Indeterminate"
+}

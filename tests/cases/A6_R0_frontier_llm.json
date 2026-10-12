@@ -1,0 +1,27 @@
+{
+  "protocol_version": "v3.3",
+  "target_system": "Contemporary frontier LLM",
+  "boundary_granularity_declaration": "All judgements in this record are made at the granularity of the target system's own current statistical boundary.",
+  "tier_1_admission": {
+    "boundary": {
+      "status": "Unsatisfied",
+      "evidence": "boundary criterion: observed structural features and sustained throughput satisfying this criterion."
+    },
+    "metabolic_throughput": {
+      "status": "Unsatisfied",
+      "evidence": "metabolic-throughput criterion: observed structural features and sustained throughput satisfying this criterion."
+    },
+    "intrinsic_homeostatic_repair": {
+      "status": "Unsatisfied",
+      "evidence": "intrinsic-repair criterion: observed structural features and sustained throughput satisfying this criterion.",
+      "excludes_passive_relaxation": true
+    },
+    "tier_1_status": "Unsatisfied"
+  },
+  "tier_2_realization": {
+    "tier_2_status": "Not_Evaluated_Short_Circuited"
+  },
+  "rule_r4_magnitude_gap_without_threshold": false,
+  "verdict_derivation_rule": "R0-short-circuit",
+  "final_verdict": "Unsatisfied"
+}
