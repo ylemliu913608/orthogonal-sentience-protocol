@@ -2,7 +2,7 @@
 
 **Author:** [Yoshua Liu / ylemliu913608]  
 **Version:** v3.3 (2026)  
-**Repository & Open-Source Audit Schema:** `https://github.com/[your-username]/orthogonal-sentience-protocol`  
+**Repository & Open-Source Audit Schema:** `https://github.com/ylemliu913608/orthogonal-sentience-protocol`  
 **Preprint DOI:** `[Insert OSF / PhilSci-Archive DOI Here]`
 
 > *Epistemic Status: Protocol extension & conceptual engineering (v3.3). We adopt Butlin et al. (2023)'s 14 computational indicators as the operational standard for active realization (Tier-2), but demonstrate via clinical mirror counterexamples (general anesthesia vs. covert consciousness) that they require an orthogonal homeostatic admission pre-filter (Tier-1: boundary, metabolism, and intrinsic feedback-driven repair) to rule out decoupled lookup systems without relying on heavy variational Bayesian math.*
