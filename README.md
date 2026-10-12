@@ -17,6 +17,11 @@ To resolve the decoupling vulnerability (e.g., Blockhead lookup tables, static c
 ## Repository Structure
 - `docs/paper_en.md` — Full English commentary paper (v3.2).
 - `docs/paper_cn.md` — Full Chinese commentary paper (v3.2 中文定稿).
-- `protocol/sentience_eval_schema.json` — Machine-readable JSON schema for two-tier auditing.
-- `audit_rules/.cursorrules` — Epistemic Linguistic Hygiene Linter rules for Cursor / Claude / LLM research agents (English).
-- `audit_rules/.cursorrules_cn` — 认识论语言卫生与防同义反复审计规则（中文版）.
+- `protocol/sentience_eval_schema.json` — Strict Draft-07 JSON Schema enforcing Tier-1 short-circuiting (R0), Kleene tri-valued conjunction, R3 indeterminate propagation, and R4 non-veto rules.
+- `tools/score.py` — Companion CLI validator enforcing what static JSON Schema cannot: regex-based Epistemic Hygiene Linter (scanning `evidence` strings for prohibited teleological/absolute terms) and Tier-2 14-indicator aggregation consistency.
+- `audit_rules/.cursorrules` — Epistemic Linguistic Hygiene Linter rules for Cursor / Claude / LLM research agents (English & Chinese).
+
+## Quick Start: Running an Audit
+```bash
+pip install jsonschema
+python tools/score.py protocol/sentience_eval_schema.json cases/your_system_eval.json
