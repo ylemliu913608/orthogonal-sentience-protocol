@@ -1,7 +1,7 @@
 # 桥接自维持与计算功能主义：对 Butlin 等人（2023）意识指标的轻量化双层扩展协议
 
 **作者：** [刘跃 / ylemliu913608]  
-**版本：** v3.3(2026)  
+**版本：** v3.3 (2026)  
 **开源协议与审计规则仓库：** `https://github.com/[your-username]/orthogonal-sentience-protocol`  
 **预印本 DOI：** `[填入您的 OSF / PhilSci-Archive DOI 链接]`
 
