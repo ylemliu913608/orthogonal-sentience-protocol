@@ -22,6 +22,6 @@ To resolve the decoupling vulnerability (e.g., Blockhead lookup tables, static c
 - `audit_rules/.cursorrules` — Epistemic Linguistic Hygiene Linter rules for Cursor / Claude / LLM research agents (English & Chinese).
 
 ## Quick Start: Running an Audit
+`tools/score.py` runs out-of-the-box with **zero external dependencies** on Python 3.7+ (and automatically pairs with `jsonschema` Draft-07 validation if installed):
 ```bash
-pip install jsonschema
 python tools/score.py protocol/sentience_eval_schema.json cases/your_system_eval.json
