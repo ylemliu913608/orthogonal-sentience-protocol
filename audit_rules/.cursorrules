@@ -153,4 +153,3 @@ its experience. State the scope limit rather than asserting either verdict.
 
 Report **every** violation with its JSON path. Do not silently rewrite an author's evidence
 string; propose the replacement and let them accept it.
-
