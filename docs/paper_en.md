@@ -1,6 +1,6 @@
 # Bridging Autopoiesis and Computational Functionalism: A Lightweight Two-Tier Extension to Butlin et al. (2023)
 
-**Author:** [Yoshua Liu/ ylemliu913608]  
+**Author:** [Yoshua Liu / ylemliu913608]  
 **Version:** v3.3 (2026)  
 **Repository & Open-Source Audit Schema:** `https://github.com/[your-username]/orthogonal-sentience-protocol`  
 **Preprint DOI:** `[Insert OSF / PhilSci-Archive DOI Here]`
