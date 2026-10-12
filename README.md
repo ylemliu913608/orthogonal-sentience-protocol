@@ -1,4 +1,4 @@
-# Orthogonal Two-Tier Sentience Assessment Protocol (v3.2)
+# Orthogonal Two-Tier Sentience Assessment Protocol (v3.3)
 
 > 📄 **Preprint (DOI)**: `[Pending OSF/PhilSci DOI — will be updated within 24h]`  
 > ⚖️ **Discussion**: `[Pending LessWrong Link]`  
