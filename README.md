@@ -1,7 +1,8 @@
 # Orthogonal Two-Tier Sentience Assessment Protocol (v3.3)
 
-> 📄 **Preprint (DOI)**: `[Pending OSF/PhilSci DOI — will be updated within 24h]`  
-> ⚖️ **Discussion**: `[Pending LessWrong Link]`  
+> 📄 **Preprint (DOI)**: [10.5281/zenodo.23327409](https://doi.org/10.5281/zenodo.23327409)
+> 🐦 **Author thread**: [X](https://x.com/ylemliu/status/2111532000163373511)
+> 💬 **Discussion**: [GitHub Issues](https://github.com/ylemliu913608/orthogonal-sentience-protocol/issues)
 > 🇬🇧 **[Full English paper (Markdown)](docs/paper_en.md)**  
 > 🇨🇳 **[中文版完整论文与协议说明请点击这里 (Chinese Version)](docs/paper_cn.md)**
 
