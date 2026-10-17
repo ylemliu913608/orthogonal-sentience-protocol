@@ -1,10 +1,10 @@
 # Orthogonal Two-Tier Sentience Assessment Protocol (v3.3)
 
-> 📄 **Preprint (DOI)**: [10.5281/zenodo.23327409](https://doi.org/10.5281/zenodo.23327409)
-> 🐦 **Author thread**: [X](https://x.com/ylemliu/status/2111532000163373511)
-> 💬 **Discussion**: [GitHub Issues](https://github.com/ylemliu913608/orthogonal-sentience-protocol/issues)
+> 📄 **Preprint (DOI)**: [10.5281/zenodo.23327409](https://doi.org/10.5281/zenodo.23327409)  
+> 🐦 **Author thread**: [X](https://x.com/ylemliu/status/2111532000163373511)  
+> 💬 **Discussion**: [GitHub Issues](https://github.com/ylemliu913608/orthogonal-sentience-protocol/issues)  
 > 🇬🇧 **[Full English paper (Markdown)](docs/paper_en.md)**  
-> 🇨🇳 **[中文版完整论文与协议说明请点击这里 (Chinese Version)](docs/paper_cn.md)**
+> 🇨🇳 **[中文版完整论文与协议说明请点击这里 (Chinese Version)](docs/paper_cn.md)**  
 
 ## Overview
 This repository hosts the formal specification, JSON evaluation schema, and Epistemic Hygiene Linter (`.cursorrules`) for **"Bridging Autopoiesis and Computational Functionalism: A Lightweight Two-Tier Extension to Butlin et al. (2023)"**.
